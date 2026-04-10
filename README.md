@@ -1,3 +1,21 @@
+# Student Management System (Laravel)
+
+This is a simple Laravel CRUD project with proper validation and file upload functionality.
+
+## Features
+- Add / Edit / Delete Students
+- Form Validation
+- Image Upload
+- Document Upload
+- Bootstrap UI Design
+- Clean MVC structure
+
+## Tech Stack
+- Laravel
+- PHP
+- MySQL
+- Bootstrap
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -56,3 +74,21 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## 🚀 Live Demo
+
+http://127.0.0.1:8000
+
+## 🎥 Video Demo
+
+https://drive.google.com/file/d/1hJKkWMomEhwYSeRsHbfPNO_VforUdC0W/view?usp=drive_link
+
+## 🧾 Features Preview
+
+- Student Form with Validation
+- Image Upload
+- File Upload
+- CRUD Operations
+
+## Author
+Amna Murtaza
