@@ -16,32 +16,63 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
+        // ✅ VALIDATION
         $request->validate([
-            'title' => 'required',
-            'content' => 'required'
+            'title' => 'required|min:3|max:100',
+            'content' => 'required|min:5',
+            'file' => 'nullable|mimes:jpg,png,pdf|max:2048'
         ]);
 
-        Post::create($request->all());
-        return redirect()->route('posts.index')->with('success', 'Post created successfully!');
+        // ✅ FILE UPLOAD
+        $fileName = null;
+
+        if ($request->hasFile('file')) {
+            $fileName = time() . '.' . $request->file('file')->extension();
+            $request->file('file')->move(public_path('uploads'), $fileName);
+        }
+
+        // ✅ STORE DATA
+        Post::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'file' => $fileName
+        ]);
+
+        return redirect()->route('posts.index')->with('success', 'Post added successfully!');
     }
 
-    public function edit(Post $post) {
+    // ✅ EDIT
+    public function edit(Post $post)
+    {
         return view('posts.edit', compact('post'));
     }
 
-    public function update(Request $request, Post $post) {
+    // ✅ UPDATE (FIXED VERSION)
+    public function update(Request $request, Post $post)
+    {
+        // ✅ VALIDATION
         $request->validate([
-            'title' => 'required',
-            'content' => 'required'
+            'title' => 'required|min:3|max:100',
+            'content' => 'required|min:5',
+            'file' => 'nullable|mimes:jpg,png,pdf|max:2048'
         ]);
 
-        $post->update($request->all());
-        return redirect()->route('posts.index')->with('success', 'Post updated successfully!');
-    }
+        // ✅ FILE UPDATE
+        if ($request->hasFile('file')) {
+            $fileName = time() . '.' . $request->file('file')->extension();
+            $request->file('file')->move(public_path('uploads'), $fileName);
+            $post->file = $fileName;
+        }
 
-    public function destroy(Post $post) {
-        $post->delete();
-        return redirect()->route('posts.index')->with('success', 'Post deleted successfully!');
+        // ✅ UPDATE DATA (IMPORTANT FIX)
+        $post->update([
+            'title' => $request->title,
+            'content' => $request->content,
+            'file' => $post->file // 👈 important fix
+        ]);
+
+        return redirect()->route('posts.index')->with('success', 'Post updated successfully!');
     }
 }
